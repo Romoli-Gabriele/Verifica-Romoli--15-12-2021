@@ -21,7 +21,7 @@ public class threadClose extends Thread {
                 System.out.println(reply+"\n");
                 if (reply.equals("Biglietti Esauriti")||reply.equals("Disponibili 0 biglietti")) {
                     System.out.println("Server disconnesso, chiusura client..");
-                    this.stop();
+                    System.exit(1);
                 }
             } catch (IOException e) {
                 System.out.println("Errore lettura dal Server");

@@ -13,7 +13,7 @@ public class client {
     DataOutputStream out;
 
     protected Socket connetti() {
-        tastiera = new BufferedReader(new InputStreamReader(System.in));
+        tastiera = new BufferedReader(new InputStreamReader(System.in)); //creazione lettore da tastiera
         try {
             socket = new Socket(nomeServer, portaServer); // creazione nuovo Socket
             out = new DataOutputStream(socket.getOutputStream()); // gestione input e output
@@ -27,13 +27,13 @@ public class client {
     }
 
     public void comunica() throws IOException {
-        threadClose controllo = new threadClose(in, this); // Creazione thread controllo chiusura da remoto
+        threadClose controllo = new threadClose(in, this); // Creazione thread controllo con chiusura da remoto
         controllo.start();
         try {
             for (;;) {
                 System.out.println("Scrivi A per acquistare un biglietto o D per vedere quanti sono i biglietti disponibili" + '\n');
-                StringUser = tastiera.readLine();
-                out.writeBytes(StringUser + '\n');
+                StringUser = tastiera.readLine();//Leggi linea da tastiera
+                out.writeBytes(StringUser + '\n');//Invio al server
             }
         } catch (Exception e) {
             socket.close();

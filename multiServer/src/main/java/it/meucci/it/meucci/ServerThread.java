@@ -31,9 +31,9 @@ public class ServerThread extends Thread {
         try {
             String rispostaChiusura;
             if(D){
-                rispostaChiusura =("Disponibili 0 biglietti\n");
+                rispostaChiusura =("Disponibili 0 biglietti\n");//Chi ha richiesto l'acquisto (se c'è)
             }else{
-                rispostaChiusura =("Biglietti Esauriti\n");
+                rispostaChiusura =("Biglietti Esauriti\n");//Tutti gli altri
             }
             outVersoClient.writeBytes(rispostaChiusura);// invia segnale al client di chiudersi
             outVersoClient.close();
@@ -44,7 +44,7 @@ public class ServerThread extends Thread {
         }
     }
 
-    public void comunica() throws Exception {
+    public void comunica() throws Exception {// gestione comunicazione con il singolo client
         inDalClient = new BufferedReader(new InputStreamReader(client.getInputStream()));
         outVersoClient = new DataOutputStream(client.getOutputStream());
         for (;;) {
@@ -52,12 +52,12 @@ public class ServerThread extends Thread {
             if(StringRV.equals("D")){
                 StringMD = ("Disponibili "+allThread.nBiglietti+" biglietti\n");
                 if(allThread.nBiglietti==0){
-                    allThread.close(this.index);
+                    allThread.close(-1);//Se viene richiesta la disponibilità non si risponde con "biglietti esauriti" nemmeno a chi la ha richiesto
                 }
             }else if(StringRV.equals("A")){
-               StringMD = allThread.vendi(this.index);
+               StringMD = allThread.vendi(this.index);//Invia identificatore del thread al server per rispondere "biglietti esauriti"  a chi richiede l'acquisto
             }
-            outVersoClient.writeBytes(StringMD+'\n');
+            outVersoClient.writeBytes(StringMD+'\n');//Invio risposta
         }
         
     }

@@ -7,7 +7,7 @@ public class App
     public static void main( String[] args ) throws IOException
     {
         client client1 = new client();
-        client1.connetti();
-        client1.comunica();
+        client1.connetti();//Connessione Server
+        client1.comunica();//Inizio comunicazione
     }
 }
